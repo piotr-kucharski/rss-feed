@@ -1,0 +1,32 @@
+name: Update RSS Feed
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Uruchamianie co godzinę
+
+jobs:
+  update-feed:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Generate RSS feed
+      run: python generate_feed.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Bot"
+        git config --global user.email "bot@noreply.github.com"
+        git add oko_press_rss.xml
+        git commit -m "Automatyczna aktualizacja feedu"
+        git push
