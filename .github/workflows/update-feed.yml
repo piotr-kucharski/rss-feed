@@ -2,7 +2,8 @@ name: Update RSS Feed
 
 on:
   schedule:
-    - cron: '0 * * * *' # Uruchamianie co godzinę
+    - cron: '0 * * * *' # Automatyczne uruchamianie co godzinę
+  workflow_dispatch: # Ręczne uruchamianie
 
 jobs:
   update-feed:
